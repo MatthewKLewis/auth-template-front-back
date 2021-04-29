@@ -26,7 +26,7 @@ app.get("/user/:id", (req, res) => {
   });
 });
 
-app.post("/user/create", (req, res) => {
+app.post("/register", (req, res) => {
   var newUser = new User({
     "Name": req.body.name,
     "Password": "1245",
