@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 mongoose.Promise = Promise;
 
@@ -6,9 +7,9 @@ mongoose.Promise = Promise;
 let mongoURI = process.env.DB_URL;
 
 if (process.env.NODE_ENV === "production") {
-  //mongoURI = process.env.DB_URL;
+  mongoURI = process.env.DB_URL;
 } else {
-  //mongoURI = "mongodb://localhost/AUTH";
+  mongoURI = process.env.DB_URL;
 }
 
 mongoose
