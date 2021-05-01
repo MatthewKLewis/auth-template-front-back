@@ -7,7 +7,7 @@ const passport = require('passport-jwt')
 const dotenv = require('dotenv')
 
 //Models
-const User = require("./user.model")
+const User = require("./models/user.model")
 
 //Routes
 const userRoutes = require('./routes/users')
