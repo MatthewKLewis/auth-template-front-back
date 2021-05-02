@@ -7,34 +7,42 @@
       name="username"
       formControlName="username"
     />
+    <span class="error-msg" *ngIf="username?.errors?.required">User Name Required.</span>
+    <span class="error-msg" *ngIf="username?.errors?.minlength">Too Short.</span>
   </p>
   <p>
     <label for="username">Email </label>
     <input type="text" id="email" name="email" formControlName="email" />
+    <span class="error-msg" *ngIf="email?.errors?.required">Email Required.</span>
+    <span class="error-msg" *ngIf="email?.errors?.minlength">Too Short.</span>
+    <span class="error-msg" *ngIf="email?.errors?.pattern">Invalid Format.</span>
   </p>
   <p>
     <label for="username">Password </label>
     <input
-      type="text"
+      type="password"
       id="password"
       name="password"
       formControlName="password"
     />
+    <span class="error-msg" *ngIf="password?.errors?.required">Password Required.</span>
+    <span class="error-msg" *ngIf="password?.errors?.minlength">Too Short.</span>
   </p>
   <p>
     <label for="username">Password </label>
     <input
-      type="text"
+      type="password"
       id="password"
       name="password"
       formControlName="password2"
     />
+    <span class="error-msg" *ngIf="password2?.errors?.required">Password Confirm Required.</span>
+    <span class="error-msg" *ngIf="registerForm?.errors?.mismatch">Passwords Do Not Match.</span>
   </p>
-
   <input
     type="submit"
     class="btn"
     [disabled]="registerForm.invalid"
-    value="submit"
+    value="Submit"
   />
 </form>
