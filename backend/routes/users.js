@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const passport = require('passport-jwt')
+const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
 
@@ -24,9 +24,7 @@ router.post('/authenticate', (req, res, next)=>{
     const username = req.body.username
     const password = req.body.password
     User.findOne({username: username}).then((user)=>{
-        console.log(user)
         User.comparePassword(password, user.password, (err, isMatch)=>{
-            console.log('comparing')
             if (err) throw err;
             if (isMatch) {
                 const token = jwt.sign(user.toJSON(), process.env.SECRET, {expiresIn: 604800})
@@ -46,8 +44,8 @@ router.post('/authenticate', (req, res, next)=>{
     })
 })
 
-router.get('/profile', (req, res, next)=>{
-    res.send('profile')
+router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next)=>{
+    res.json({user: req.user})
 })
 
 module.exports = router;
