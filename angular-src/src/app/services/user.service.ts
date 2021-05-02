@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import {JwtHelperService} from '@auth0/angular-jwt'
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +33,12 @@ export class UserService {
       .post('http://localhost:4100/users/authenticate', user, { headers: headers })
   }
 
+  checkExpired() {
+    this.loadToken()
+    const helper = new JwtHelperService()
+    return helper.isTokenExpired(this.authToken)
+  }
+
   logOutUser() {
     this.authToken = null
     this.user = null
@@ -40,17 +46,14 @@ export class UserService {
   }
 
   getProfile() {
-
     this.loadToken();
     let headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authToken}`,
       'Content-Type': 'application/json'
     });
-
     return this.http.get('http://localhost:4100/users/profile', {headers: headers})
   }
   
-
   loadToken() {
     const token = localStorage.getItem('id_token')
     this.authToken = token
