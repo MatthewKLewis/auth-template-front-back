@@ -11,6 +11,7 @@
     "body-parsec": "3.0.0",
     "bcryptjs": "*",
     "cors": "*",
+    "passport": "*",
     "passport-jwt": "*"
   },
   "devDependencies": {},

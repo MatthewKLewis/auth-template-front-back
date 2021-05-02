@@ -3,7 +3,7 @@ const express = require("express")
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const passport = require('passport-jwt')
+const passport = require('passport')
 const dotenv = require('dotenv')
 
 //Models
@@ -16,6 +16,11 @@ const userRoutes = require('./routes/users')
 const port = process.env.PORT || 4000
 const app = express();
 app.use(bodyParser.json())
+app.use(passport.initialize())
+app.use(passport.session())
+require('./passport')(passport)
+
+//Route Registration
 app.use('/users', userRoutes)
 
 //Set Static Folder
