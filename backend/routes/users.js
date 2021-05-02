@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const cors = require('cors')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
@@ -29,8 +30,9 @@ router.post('/authenticate', (req, res, next)=>{
             if (isMatch) {
                 const token = jwt.sign(user.toJSON(), process.env.SECRET, {expiresIn: 604800})
                 res.json({
-                    sucess: true, 
-                    token: 'JWT ' + token,
+                    success: true,
+                    msg: 'log in success', 
+                    token: token,
                     user: {
                         id: user._id,
                         username: user.username,

@@ -1,4 +1,7 @@
-<button [routerLink]="['/']">Home </button>
-<button [routerLink]="['login']">Login </button>
-<button [routerLink]="['register']">Register </button>
+<button [routerLink]="['/']">home </button>
+<button [routerLink]="['register']">create account </button>
+
+<button class="float-right" (click)="logOut()">logout </button>
+<button class="float-right" [routerLink]="['login']">login </button>
+
 <hr />

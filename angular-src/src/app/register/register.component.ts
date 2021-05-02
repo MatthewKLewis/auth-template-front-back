@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -13,11 +14,14 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+
   registerForm: FormGroup;
+  helpMessage: string = ''
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.registerForm = this.formBuilder.group(
       {
@@ -51,23 +55,19 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  get username() {
-    return this.registerForm.get('username');
-  }
-
-  get email() {
-    return this.registerForm.get('email');
-  }
-
-  get password() {
-    return this.registerForm.get('password');
-  }
-
-  get password2() {
-    return this.registerForm.get('password2');
-  }
+  get username() {    return this.registerForm.get('username');  }
+  get email() {    return this.registerForm.get('email');  }
+  get password() {    return this.registerForm.get('password');  }
+  get password2() {    return this.registerForm.get('password2');  }
 
   onSubmit() {
-    console.log(this.registerForm);
+    this.userService.registerUser(this.registerForm.value).subscribe((res:any)=>{
+      this.router.navigate(['/'])
+    })
+  }
+
+  flashMessage(text:string) {
+    this.helpMessage = text;
+    setTimeout(()=>{this.helpMessage = ''}, 1000)
   }
 }
